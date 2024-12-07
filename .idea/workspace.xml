@@ -4,16 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cda818e4-dd8a-4a02-aa37-8d83667f7e17" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/wstone/Alloy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/wstone/HeatTransferSimulation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/wstone/Main.java" afterDir="false" />
+    <list default="true" id="cda818e4-dd8a-4a02-aa37-8d83667f7e17" name="Changes" comment="Bare setup of alloy.">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/wstone/concurrent/Simulation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/wstone/Alloy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/wstone/Alloy.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,8 +17,16 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="package-info" />
         <option value="Class" />
       </list>
+    </option>
+  </component>
+  <component name="Git.Pull.Settings">
+    <option name="OPTIONS">
+      <set>
+        <option value="REBASE" />
+      </set>
     </option>
   </component>
   <component name="Git.Settings">
@@ -41,7 +43,9 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.Alloy.executor": "Debug",
     "Application.HeatTransferSimulation.executor": "Run",
+    "Application.Simulation.executor": "Run",
     "Application.ThermalAlloySimulation (1).executor": "Run",
     "Application.ThermalAlloySimulation (2).executor": "Run",
     "Application.ThermalAlloySimulation (3).executor": "Debug",
@@ -59,13 +63,13 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.ThermalAlloySimulation">
-    <configuration name="ThermalAlloySimulation (2)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.wstone.ThermalAlloySimulation" />
+  <component name="RunManager" selected="Application.Simulation (1)">
+    <configuration name="Alloy" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.wstone.archive.Alloy" />
       <module name="HeatPropagation" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.wstone.*" />
+          <option name="PATTERN" value="org.wstone.archive.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -73,12 +77,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ThermalAlloySimulation (3)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.wstone.ThermalAlloySimulation" />
+    <configuration name="HeatTransferSimulation" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.wstone.archive.HeatTransferSimulation" />
       <module name="HeatPropagation" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.wstone.*" />
+          <option name="PATTERN" value="org.wstone.archive.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -86,12 +90,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ThermalAlloySimulation (4)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.wstone.ThermalAlloySimulation" />
+    <configuration name="Simulation (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.wstone.concurrent.Simulation" />
       <module name="HeatPropagation" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.wstone.*" />
+          <option name="PATTERN" value="org.wstone.concurrent.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -99,12 +103,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ThermalAlloySimulation (5)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.wstone.ThermalAlloySimulation" />
+    <configuration name="Simulation" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.wstone.concurrent.Simulation" />
       <module name="HeatPropagation" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.wstone.*" />
+          <option name="PATTERN" value="org.wstone.concurrent.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -117,7 +121,7 @@
       <module name="HeatPropagation" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.wstone.*" />
+          <option name="PATTERN" value="org.wstone.archive.working.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -127,11 +131,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Simulation (1)" />
+        <item itemvalue="Application.Simulation" />
+        <item itemvalue="Application.HeatTransferSimulation" />
+        <item itemvalue="Application.Alloy" />
         <item itemvalue="Application.ThermalAlloySimulation" />
-        <item itemvalue="Application.ThermalAlloySimulation (5)" />
-        <item itemvalue="Application.ThermalAlloySimulation (4)" />
-        <item itemvalue="Application.ThermalAlloySimulation (3)" />
-        <item itemvalue="Application.ThermalAlloySimulation (2)" />
       </list>
     </recent_temporary>
   </component>
@@ -153,28 +157,33 @@
       <updated>1733172262324</updated>
       <workItem from="1733172263687" duration="6989000" />
       <workItem from="1733341728890" duration="2612000" />
+      <workItem from="1733375904890" duration="11776000" />
     </task>
+    <task id="LOCAL-00001" summary="Bare setup of alloy.">
+      <option name="closed" value="true" />
+      <created>1733603155801</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1733603155801</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Bare setup of alloy." />
+    <option name="LAST_COMMIT_MESSAGE" value="Bare setup of alloy." />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/wstone/ThermalAlloySimulation.java</url>
-          <line>129</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/org/wstone/ThermalAlloySimulation.java</url>
-          <line>111</line>
-          <properties class="org.wstone.ThermalAlloySimulation.ThermalSimulator" method="visualize">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="2" />
+          <url>file://$PROJECT_DIR$/src/main/java/org/wstone/archive/Alloy.java</url>
+          <line>31</line>
+          <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -1,4 +1,4 @@
-package org.wstone;
+package org.wstone.archive.working;
 
 import java.util.Random;
 
