@@ -79,7 +79,7 @@
       <recent name="org.wstone.concurrent.temp" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Simulation (2)">
+  <component name="RunManager" selected="Application.Simulation">
     <configuration name="Simulation (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.wstone.concurrent.Simulation" />
       <module name="HeatPropagation" />
@@ -106,7 +106,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Simulation (4)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="Simulation (3)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.wstone.concurrent.Simulation" />
       <module name="HeatPropagation" />
       <extension name="coverage">
@@ -186,11 +186,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Simulation" />
+        <item itemvalue="Application.Simulation (3)" />
         <item itemvalue="Application.Simulation (2)" />
         <item itemvalue="Application.Simulation (5)" />
-        <item itemvalue="Application.Simulation" />
         <item itemvalue="Application.Simulation (1)" />
-        <item itemvalue="Application.Simulation (4)" />
       </list>
     </recent_temporary>
   </component>

@@ -125,7 +125,7 @@ public class Simulation {
                         // alternative: collect all changes without locking
                         double tempDifference = neighbor.temperature - curRegion.temperature;
                         double heatTransfer = tempDifference * curRegion.thermalCoefficient;
-                        totalChange += heatTransfer;
+                        //totalChange += heatTransfer;
                         totalChange += heatTransfer;
                         neighborCount++;
 
@@ -163,7 +163,6 @@ public class Simulation {
             }
         }
 
-
         class Region{
             CopyOnWriteArrayList<Region> neighbors;
             double thermalCoefficient;
@@ -195,7 +194,7 @@ public class Simulation {
     }
     public static void main(String[] args) {
         Simulation simulation = new Simulation();
-        Simulation.Alloy alloy = simulation.new Alloy(200, 1000, 1000.0, 800.0, 0.75, 1.0, 1.25, 60);
+        Simulation.Alloy alloy = simulation.new Alloy(200, 1000, 100000.0, 80000.0, 0.75, 1.0, 1.25, 600);
         alloy.simulateHeatTransfer();
         JFrame frame = new JFrame("Simulation");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
