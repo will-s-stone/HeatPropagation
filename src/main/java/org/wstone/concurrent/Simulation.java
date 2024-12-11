@@ -1,5 +1,7 @@
 package org.wstone.concurrent;
 
+import javax.swing.*;
+import java.awt.*;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -17,23 +19,31 @@ public class Simulation {
         private final int iterations;
         private static final int NUM_THREADS = Runtime.getRuntime().availableProcessors();
         //private static final int NUM_THREADS = 4;
-        private final String filename;
         ConcurrentHashMap<String, Double> tempMap = new ConcurrentHashMap<>();
+        Visualization vis;
 
-        public Alloy(int height, int width, double s, double t, double c1, double c2, double c3, int iterations, String filename){
+
+        public Alloy(int height, int width, double s, double t, double c1, double c2, double c3, int iterations){
             this.width = width;
             this.height = height;
             this.grid = new Region[height][width];
             this.iterations = iterations;
-            this.filename = filename;
             for (int y = 0; y < height; y++) {
                 for (int x = 0; x < width; x++) {
                     grid[y][x] = new Region(c1, c2, c3);
                 }
             }
+            vis = new Visualization(this.tempMap, height, width, s, t);
+
             setUpNeighbors();
             this.executorService = Executors.newFixedThreadPool(NUM_THREADS);
             initializeHeatSources(s, t);
+        }
+
+        void display(Frame frame){
+            frame.setSize(vis.getWidth(), vis.getHeight());
+            frame.add(vis);
+            frame.setVisible(true);
         }
 
 
@@ -84,7 +94,7 @@ public class Simulation {
                 }
                 if(iteration % 5 == 0 && iteration != 0){
                     writeToMap();
-                    System.out.println("(0,0) is ... - > " + tempMap.get(Arrays.toString(new int[]{0, 0})) + "\n"+ "bla,bla) is ... - > " + tempMap.get(Arrays.toString(new int[]{width - 1, height - 1})) + "\n\n\n");
+                    //System.out.println("(0,0) is ... - > " + tempMap.get(Arrays.toString(new int[]{0, 0})) + "\n"+ "bottom right corner is ... - > " + tempMap.get(Arrays.toString(new int[]{width - 1, height - 1})) + "\n\n\n");
                 }
             }
         }
@@ -96,22 +106,6 @@ public class Simulation {
                     int[] p = {x, y};
                     tempMap.put(Arrays.toString(p), grid[y][x].temperature);
                 }
-            }
-        }
-
-        // handles writing the csv, might need to work on making sure there are no data races
-        private void writeToCsv(){
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename, false))) {
-                // clear the csv here
-                for (int y = 0; y < height; y++) {
-                    for (int x = 0; x < width; x++) {
-                        writer.write(String.format(",%.4f", grid[y][x].temperature));
-                    }
-                }
-                writer.newLine();
-            } catch (IOException e) {
-                System.err.println("Error writing to CSV: " + e.getMessage());
-                e.printStackTrace();
             }
         }
 
@@ -204,10 +198,13 @@ public class Simulation {
     }
     public static void main(String[] args) {
         Simulation simulation = new Simulation();
-        Simulation.Alloy alloy = simulation.new Alloy(250, 50, 1000.0, 800.0, 0.75, 1.0, 1.25, 10, "test.csv");
-
+        Simulation.Alloy alloy = simulation.new Alloy(100, 500, 1000.0, 800.0, 0.75, 1.0, 1.25, 10);
         alloy.simulateHeatTransfer();
-        alloy.printFinalTemperatureDistribution();
+        JFrame frame = new JFrame("Simulation");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        alloy.display(frame);
+        //alloy.printFinalTemperatureDistribution();
+        alloy.display(frame);
         alloy.shutdown();
     }
 }
