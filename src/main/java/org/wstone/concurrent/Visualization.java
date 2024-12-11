@@ -61,6 +61,7 @@ public class Visualization extends JPanel {
     public int getHeight(){ return height;}
     public int getWidth(){return width;}
 
+
     // will change this so I am referencing the same maps that the simulation is using by memory and the update logic would be to recompute the visualization.
     public void updateMap(ConcurrentHashMap<String, Double> tempMap) {
         lock.lock();

@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cda818e4-dd8a-4a02-aa37-8d83667f7e17" name="Changes" comment="AtomicDoubles are not who they appear to be.">
+    <list default="true" id="cda818e4-dd8a-4a02-aa37-8d83667f7e17" name="Changes" comment="Fixed it.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/wstone/concurrent/Simulation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/wstone/concurrent/Simulation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/wstone/concurrent/Visualization.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/wstone/concurrent/Visualization.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +47,7 @@
     "Application.HeatTransferSimulation.executor": "Run",
     "Application.Simulation (1).executor": "Run",
     "Application.Simulation (2).executor": "Run",
-    "Application.Simulation (3).executor": "Debug",
+    "Application.Simulation (3).executor": "Run",
     "Application.Simulation (4).executor": "Run",
     "Application.Simulation (5).executor": "Run",
     "Application.Simulation.executor": "Run",
@@ -119,7 +120,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Simulation (5)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="Simulation (4)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.wstone.concurrent.Simulation" />
       <module name="HeatPropagation" />
       <extension name="coverage">
@@ -187,10 +188,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Simulation" />
+        <item itemvalue="Application.Simulation (1)" />
+        <item itemvalue="Application.Simulation (4)" />
         <item itemvalue="Application.Simulation (3)" />
         <item itemvalue="Application.Simulation (2)" />
-        <item itemvalue="Application.Simulation (5)" />
-        <item itemvalue="Application.Simulation (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -220,7 +221,7 @@
       <workItem from="1733896280941" duration="5514000" />
       <workItem from="1733940601442" duration="682000" />
       <workItem from="1733941318724" duration="6551000" />
-      <workItem from="1733947894468" duration="5950000" />
+      <workItem from="1733947894468" duration="8243000" />
     </task>
     <task id="LOCAL-00001" summary="Bare setup of alloy.">
       <option name="closed" value="true" />
@@ -278,7 +279,23 @@
       <option name="project" value="LOCAL" />
       <updated>1733952714819</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Working, but wierd stuff going on.">
+      <option name="closed" value="true" />
+      <created>1733954014834</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1733954014834</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Fixed it.">
+      <option name="closed" value="true" />
+      <created>1733954463010</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1733954463010</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -292,6 +309,8 @@
     <MESSAGE value="Works but each region is a pixel, therefore it shows heat transfer in real time but with the given thermal coefficients, the best alloy equivalent would be invar." />
     <MESSAGE value="It was not the generateGaussian's methods fault. Turns out there is a deadlock somewhere, I assume to be in the computeHeatTransfer(). Working on making everything thread safe." />
     <MESSAGE value="AtomicDoubles are not who they appear to be." />
-    <option name="LAST_COMMIT_MESSAGE" value="AtomicDoubles are not who they appear to be." />
+    <MESSAGE value="Working, but wierd stuff going on." />
+    <MESSAGE value="Fixed it." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed it." />
   </component>
 </project>

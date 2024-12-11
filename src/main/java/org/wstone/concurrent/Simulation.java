@@ -20,7 +20,6 @@ public class Simulation {
         private final ExecutorService executorService;
         private final int iterations;
         private static final int NUM_THREADS = Runtime.getRuntime().availableProcessors();
-        //private static final int NUM_THREADS = 4;
         ConcurrentHashMap<String, Double> tempMap = new ConcurrentHashMap<>();
         Visualization vis;
 
@@ -73,7 +72,11 @@ public class Simulation {
         }
 
 
-        void simulateHeatTransfer(){
+        void simulateHeatTransfer(JFrame frame){
+            frame.setSize(vis.getWidth(), vis.getHeight());
+            frame.add(vis);
+            frame.setVisible(true);
+
             for (int iteration = 0; iteration < iterations; iteration++) {
                 CountDownLatch latch = new CountDownLatch(NUM_THREADS);
                 int rowsPerThread = height/NUM_THREADS;
@@ -96,7 +99,7 @@ public class Simulation {
                 }
                 if(iteration % 5 == 0 && iteration != 0){
                     writeToMap();
-                    //System.out.println("(0,0) is ... - > " + tempMap.get(Arrays.toString(new int[]{0, 0})) + "\n"+ "bottom right corner is ... - > " + tempMap.get(Arrays.toString(new int[]{width - 1, height - 1})) + "\n\n\n");
+                    SwingUtilities.invokeLater(vis::repaint);
                 }
             }
         }
@@ -139,14 +142,7 @@ public class Simulation {
 
             }
         }
-        public void printFinalTemperatureDistribution() {
-            for (int y = 0; y < height; y++) {
-                for (int x = 0; x < width; x++) {
-                    System.out.printf("%.2f ", grid[y][x].temperature);
-                }
-                System.out.println();
-            }
-        }
+
         public void shutdown() {
             executorService.shutdown();
             try {
@@ -194,13 +190,15 @@ public class Simulation {
     }
     public static void main(String[] args) {
         Simulation simulation = new Simulation();
-        Simulation.Alloy alloy = simulation.new Alloy(200, 1000, 100000.0, 80000.0, 0.75, 1.0, 1.25, 600);
-        alloy.simulateHeatTransfer();
+        Simulation.Alloy alloy = simulation.new Alloy(100, 500, 100000.0, 80000.0, 0.75, 1.0, 1.25, 60000000);
+
         JFrame frame = new JFrame("Simulation");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        alloy.display(frame);
+
+        alloy.simulateHeatTransfer(frame);
+
         //alloy.printFinalTemperatureDistribution();
-        alloy.display(frame);
-        alloy.shutdown();
+        //alloy.display(frame);
+        //alloy.shutdown();
     }
 }
