@@ -35,7 +35,6 @@ public class Visualization extends JPanel {
                 if (color == null) g.setColor(new Color(0, 0, 255));
                 else{g.setColor(setColor(color));}
                 g.fillRect(x, y, cellSize, cellSize);
-                //System.out.println("(0,0) is ... - > " + tempMap.get(Arrays.toString(new int[]{0, 0})) + "\n"+ "bottom right corner is ... - > " + tempMap.get(Arrays.toString(new int[]{width - 1, height - 1})) + "\n\n\n");
             }
         }
     }
@@ -50,28 +49,9 @@ public class Visualization extends JPanel {
         return new Color(red, 0, blue);
     }
 
-    Color randColor() {
-        Random rand = new Random();
-        int red = rand.nextInt(256); // 0 to 255
-        int green = rand.nextInt(256);
-        int blue = rand.nextInt(256);
-        return new Color(red, green, blue);
-    }
 
     public int getHeight(){ return height;}
     public int getWidth(){return width;}
-
-
-    // will change this so I am referencing the same maps that the simulation is using by memory and the update logic would be to recompute the visualization.
-    public void updateMap(ConcurrentHashMap<String, Double> tempMap) {
-        lock.lock();
-        try {
-            this.tempMap = tempMap;
-        } finally {
-            lock.unlock();
-        }
-    }
-
 
     public static void main(String[] args) {
         // Create the JFrame

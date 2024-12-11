@@ -41,13 +41,6 @@ public class Simulation {
             initializeHeatSources(s, t);
         }
 
-        void display(Frame frame){
-            frame.setSize(vis.getWidth(), vis.getHeight());
-            frame.add(vis);
-            frame.setVisible(true);
-        }
-
-
         private void setUpNeighbors() {
             for (int y = 0; y < height; y++) {
                 for (int x = 0; x < width; x++) {
@@ -73,7 +66,7 @@ public class Simulation {
 
 
         void simulateHeatTransfer(JFrame frame){
-            frame.setSize(vis.getWidth(), vis.getHeight());
+            frame.setSize((int) (vis.getWidth())+3, (int) (vis.getHeight()+30));
             frame.add(vis);
             frame.setVisible(true);
 
@@ -190,15 +183,12 @@ public class Simulation {
     }
     public static void main(String[] args) {
         Simulation simulation = new Simulation();
-        Simulation.Alloy alloy = simulation.new Alloy(100, 500, 100000.0, 80000.0, 0.75, 1.0, 1.25, 60000000);
+        Simulation.Alloy alloy = simulation.new Alloy(500, 500, 1000.0, 800.0, 0.75, 1.0, 1.25, 60000000);
 
-        JFrame frame = new JFrame("Simulation");
+        JFrame frame = new JFrame("Heat Transfer Simulation");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         alloy.simulateHeatTransfer(frame);
 
-        //alloy.printFinalTemperatureDistribution();
-        //alloy.display(frame);
-        //alloy.shutdown();
     }
 }

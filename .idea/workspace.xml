@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cda818e4-dd8a-4a02-aa37-8d83667f7e17" name="Changes" comment="Fixed it.">
+    <list default="true" id="cda818e4-dd8a-4a02-aa37-8d83667f7e17" name="Changes" comment="IT WORKS. Time to distribute :)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/wstone/concurrent/Simulation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/wstone/concurrent/Simulation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/wstone/concurrent/Visualization.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/wstone/concurrent/Visualization.java" afterDir="false" />
@@ -80,20 +80,7 @@
       <recent name="org.wstone.concurrent.temp" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Simulation">
-    <configuration name="Simulation (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.wstone.concurrent.Simulation" />
-      <module name="HeatPropagation" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.wstone.concurrent.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="Application.Simulation (4)">
     <configuration name="Simulation (2)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.wstone.concurrent.Simulation" />
       <module name="HeatPropagation" />
@@ -121,6 +108,19 @@
       </method>
     </configuration>
     <configuration name="Simulation (4)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.wstone.concurrent.Simulation" />
+      <module name="HeatPropagation" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.wstone.concurrent.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Simulation (5)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.wstone.concurrent.Simulation" />
       <module name="HeatPropagation" />
       <extension name="coverage">
@@ -187,11 +187,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Simulation" />
-        <item itemvalue="Application.Simulation (1)" />
         <item itemvalue="Application.Simulation (4)" />
         <item itemvalue="Application.Simulation (3)" />
         <item itemvalue="Application.Simulation (2)" />
+        <item itemvalue="Application.Simulation (5)" />
+        <item itemvalue="Application.Simulation" />
       </list>
     </recent_temporary>
   </component>
@@ -221,7 +221,7 @@
       <workItem from="1733896280941" duration="5514000" />
       <workItem from="1733940601442" duration="682000" />
       <workItem from="1733941318724" duration="6551000" />
-      <workItem from="1733947894468" duration="8243000" />
+      <workItem from="1733947894468" duration="10794000" />
     </task>
     <task id="LOCAL-00001" summary="Bare setup of alloy.">
       <option name="closed" value="true" />
@@ -295,7 +295,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733954463010</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="IT WORKS. Time to distribute :)">
+      <option name="closed" value="true" />
+      <created>1733956651630</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1733956651630</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -311,6 +319,7 @@
     <MESSAGE value="AtomicDoubles are not who they appear to be." />
     <MESSAGE value="Working, but wierd stuff going on." />
     <MESSAGE value="Fixed it." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed it." />
+    <MESSAGE value="IT WORKS. Time to distribute :)" />
+    <option name="LAST_COMMIT_MESSAGE" value="IT WORKS. Time to distribute :)" />
   </component>
 </project>
