@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cda818e4-dd8a-4a02-aa37-8d83667f7e17" name="Changes" comment="Fixed that whole write to csv business.">
+    <list default="true" id="cda818e4-dd8a-4a02-aa37-8d83667f7e17" name="Changes" comment="Works but each region is a pixel, therefore it shows heat transfer in real time but with the given thermal coefficients, the best alloy equivalent would be invar.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/wstone/concurrent/Simulation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/wstone/concurrent/Simulation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/wstone/concurrent/Visualization.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/wstone/concurrent/Visualization.java" afterDir="false" />
     </list>
@@ -46,7 +47,7 @@
     "Application.Alloy.executor": "Debug",
     "Application.HeatTransferSimulation.executor": "Run",
     "Application.Simulation (1).executor": "Run",
-    "Application.Simulation (2).executor": "Debug",
+    "Application.Simulation (2).executor": "Run",
     "Application.Simulation (3).executor": "Run",
     "Application.Simulation (4).executor": "Run",
     "Application.Simulation (5).executor": "Run",
@@ -80,7 +81,7 @@
       <recent name="org.wstone.concurrent.temp" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Simulation">
+  <component name="RunManager" selected="Application.Simulation (1)">
     <configuration name="Simulation (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.wstone.concurrent.Simulation" />
       <module name="HeatPropagation" />
@@ -120,7 +121,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Simulation (5)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="Simulation (4)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.wstone.concurrent.Simulation" />
       <module name="HeatPropagation" />
       <extension name="coverage">
@@ -133,7 +134,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Simulation" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="Simulation (5)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.wstone.concurrent.Simulation" />
       <module name="HeatPropagation" />
       <extension name="coverage">
@@ -187,10 +188,10 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Simulation" />
+        <item itemvalue="Application.Simulation (1)" />
+        <item itemvalue="Application.Simulation (4)" />
         <item itemvalue="Application.Simulation (3)" />
         <item itemvalue="Application.Simulation (2)" />
-        <item itemvalue="Application.Simulation (1)" />
         <item itemvalue="Application.Simulation (5)" />
       </list>
     </recent_temporary>
@@ -221,6 +222,7 @@
       <workItem from="1733896280941" duration="5514000" />
       <workItem from="1733940601442" duration="682000" />
       <workItem from="1733941318724" duration="6551000" />
+      <workItem from="1733947894468" duration="2296000" />
     </task>
     <task id="LOCAL-00001" summary="Bare setup of alloy.">
       <option name="closed" value="true" />
@@ -254,7 +256,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733943829791</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Works but each region is a pixel, therefore it shows heat transfer in real time but with the given thermal coefficients, the best alloy equivalent would be invar.">
+      <option name="closed" value="true" />
+      <created>1733948076213</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1733948076213</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -265,17 +275,7 @@
     <MESSAGE value="Got heat transfer working, need to work on Visualization." />
     <MESSAGE value="Working on changing the read and write to csv structure to map the cartesian coords to the value in a concurrent hashmap. The writeToCsv() method can be VERY dangerous." />
     <MESSAGE value="Fixed that whole write to csv business." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed that whole write to csv business." />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/wstone/concurrent/Visualization.java</url>
-          <line>38</line>
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Works but each region is a pixel, therefore it shows heat transfer in real time but with the given thermal coefficients, the best alloy equivalent would be invar." />
+    <option name="LAST_COMMIT_MESSAGE" value="Works but each region is a pixel, therefore it shows heat transfer in real time but with the given thermal coefficients, the best alloy equivalent would be invar." />
   </component>
 </project>

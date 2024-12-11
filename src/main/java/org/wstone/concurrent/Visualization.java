@@ -2,10 +2,6 @@ package org.wstone.concurrent;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
@@ -39,8 +35,7 @@ public class Visualization extends JPanel {
                 if (color == null) g.setColor(new Color(0, 0, 255));
                 else{g.setColor(setColor(color));}
                 g.fillRect(x, y, cellSize, cellSize);
-                System.out.println("(0,0) is ... - > " + tempMap.get(Arrays.toString(new int[]{0, 0})) + "\n"+ "bottom right corner is ... - > " + tempMap.get(Arrays.toString(new int[]{width - 1, height - 1})) + "\n\n\n");
-
+                //System.out.println("(0,0) is ... - > " + tempMap.get(Arrays.toString(new int[]{0, 0})) + "\n"+ "bottom right corner is ... - > " + tempMap.get(Arrays.toString(new int[]{width - 1, height - 1})) + "\n\n\n");
             }
         }
     }
