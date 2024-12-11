@@ -106,7 +106,7 @@ public class Simulation {
             for (int y = 0; y < height; y++) {
                 for (int x = 0; x < width; x++) {
                     int[] p = {x, y};
-                    tempMap.put(Arrays.toString(p), grid[y][x].temperature.doubleValue());
+                    tempMap.put(Arrays.toString(p), grid[y][x].temperature);
                 }
             }
         }
@@ -125,7 +125,7 @@ public class Simulation {
                         curRegion.lock.lock();
                         neighbor.lock.lock();
                         try {
-                            double tempDifference = neighbor.temperature.get() - curRegion.temperature.get();
+                            double tempDifference = neighbor.temperature - curRegion.temperature;
                             double heatTransfer = tempDifference * curRegion.thermalCoefficient;
 
                             totalChange += heatTransfer;
@@ -139,8 +139,8 @@ public class Simulation {
                         curRegion.lock.lock();
                         try {
                             // may have an issue here, non-atomic op on volatile
-                            double t = curRegion.temperature.get();
-                            curRegion.temperature.set(t + totalChange/neighborCount);
+                            double t = curRegion.temperature;
+                            curRegion.setTemperature(t+totalChange/neighborCount);
                             //curRegion.temperature += totalChange/neighborCount;
                         }finally {
                             curRegion.lock.unlock();
@@ -161,11 +161,16 @@ public class Simulation {
         public void shutdown() {
             executorService.shutdown();
             try {
-                if (!executorService.awaitTermination(800, TimeUnit.MILLISECONDS)) {
+                if (!executorService.awaitTermination(5, TimeUnit.SECONDS)) {
                     executorService.shutdownNow();
+                    //wait again to ensure shutdown
+                    if (!executorService.awaitTermination(2, TimeUnit.SECONDS)) {
+                        System.err.println("ExecutorService did not terminate");
+                    }
                 }
             } catch (InterruptedException e) {
                 executorService.shutdownNow();
+                Thread.currentThread().interrupt();
             }
         }
 
@@ -173,7 +178,7 @@ public class Simulation {
         class Region{
             CopyOnWriteArrayList<Region> neighbors;
             double thermalCoefficient;
-            private AtomicDouble temperature = new AtomicDouble();
+            private volatile double temperature;
             ReentrantLock lock;
 
             // we assume any region is made of 3 alloys with 3 different thermal coefficients with a 20% variance in the amount each alloy.
@@ -181,35 +186,27 @@ public class Simulation {
             public Region(double c1, double c2, double c3){
                 neighbors = new CopyOnWriteArrayList<>();
                 lock = new ReentrantLock();
-//                thermalCoefficient = (c1*generateGaussianRandom(0.8, 1.2, 1.0, 0.1) +
-//                        c2*generateGaussianRandom(0.8, 1.2, 1.0, 0.1) +
-//                        c3*generateGaussianRandom(0.8, 1.2, 1.0, 0.1)) / 3;
                 // 20% variation
                 thermalCoefficient = (c1*generateUniformRandom(0.8, 1.2) + c2*generateUniformRandom(0.8, 1.2) + (c3*generateUniformRandom(0.8, 1.2))) / 3;
             }
-
-
-            // this is a little extra...
-            // the percentages of each allow is now randomized according to a Gaussian :)
-//            static double generateGaussianRandom(double min, double max, double mean, double stdDev) {
-//                double value;
-//                do {value = mean + ThreadLocalRandom.current().nextGaussian() * stdDev;
-//                } while (value < min || value > max);
-//                return value;
-//            }
 
             static double generateUniformRandom(double min, double max) {
                 return min + (max - min) * ThreadLocalRandom.current().nextDouble();
             }
 
             void setTemperature(double temperature) {
-                this.temperature.set(temperature);
+                lock.lock();
+                try {
+                    this.temperature = temperature;
+                }finally {
+                    lock.unlock();
+                }
             }
         }
     }
     public static void main(String[] args) {
         Simulation simulation = new Simulation();
-        Simulation.Alloy alloy = simulation.new Alloy(200, 1000, 1000.0, 800.0, 0.75, 1.0, 1.25, 2);
+        Simulation.Alloy alloy = simulation.new Alloy(200, 1000, 1000.0, 800.0, 0.75, 1.0, 1.25, 6);
         alloy.simulateHeatTransfer();
         JFrame frame = new JFrame("Simulation");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

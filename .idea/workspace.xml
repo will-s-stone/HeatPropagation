@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cda818e4-dd8a-4a02-aa37-8d83667f7e17" name="Changes" comment="Works but each region is a pixel, therefore it shows heat transfer in real time but with the given thermal coefficients, the best alloy equivalent would be invar.">
+    <list default="true" id="cda818e4-dd8a-4a02-aa37-8d83667f7e17" name="Changes" comment="It was not the generateGaussian's methods fault. Turns out there is a deadlock somewhere, I assume to be in the computeHeatTransfer(). Working on making everything thread safe.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/wstone/concurrent/Simulation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/wstone/concurrent/Simulation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/wstone/concurrent/Visualization.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/wstone/concurrent/Visualization.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,9 +46,9 @@
     "Application.HeatTransferSimulation.executor": "Run",
     "Application.Simulation (1).executor": "Run",
     "Application.Simulation (2).executor": "Run",
-    "Application.Simulation (3).executor": "Run",
+    "Application.Simulation (3).executor": "Debug",
     "Application.Simulation (4).executor": "Run",
-    "Application.Simulation (5).executor": "Run",
+    "Application.Simulation (5).executor": "Debug",
     "Application.Simulation.executor": "Run",
     "Application.ThermalAlloySimulation (1).executor": "Run",
     "Application.ThermalAlloySimulation (2).executor": "Run",
@@ -134,7 +132,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Simulation (5)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="Simulation" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.wstone.concurrent.Simulation" />
       <module name="HeatPropagation" />
       <extension name="coverage">
@@ -189,10 +187,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Simulation (1)" />
+        <item itemvalue="Application.Simulation" />
         <item itemvalue="Application.Simulation (4)" />
         <item itemvalue="Application.Simulation (3)" />
         <item itemvalue="Application.Simulation (2)" />
-        <item itemvalue="Application.Simulation (5)" />
       </list>
     </recent_temporary>
   </component>
@@ -222,7 +220,7 @@
       <workItem from="1733896280941" duration="5514000" />
       <workItem from="1733940601442" duration="682000" />
       <workItem from="1733941318724" duration="6551000" />
-      <workItem from="1733947894468" duration="2296000" />
+      <workItem from="1733947894468" duration="4684000" />
     </task>
     <task id="LOCAL-00001" summary="Bare setup of alloy.">
       <option name="closed" value="true" />
@@ -264,7 +262,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733948076213</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="It was not the generateGaussian's methods fault. Turns out there is a deadlock somewhere, I assume to be in the computeHeatTransfer(). Working on making everything thread safe.">
+      <option name="closed" value="true" />
+      <created>1733950326361</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1733950326361</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -276,6 +282,18 @@
     <MESSAGE value="Working on changing the read and write to csv structure to map the cartesian coords to the value in a concurrent hashmap. The writeToCsv() method can be VERY dangerous." />
     <MESSAGE value="Fixed that whole write to csv business." />
     <MESSAGE value="Works but each region is a pixel, therefore it shows heat transfer in real time but with the given thermal coefficients, the best alloy equivalent would be invar." />
-    <option name="LAST_COMMIT_MESSAGE" value="Works but each region is a pixel, therefore it shows heat transfer in real time but with the given thermal coefficients, the best alloy equivalent would be invar." />
+    <MESSAGE value="It was not the generateGaussian's methods fault. Turns out there is a deadlock somewhere, I assume to be in the computeHeatTransfer(). Working on making everything thread safe." />
+    <option name="LAST_COMMIT_MESSAGE" value="It was not the generateGaussian's methods fault. Turns out there is a deadlock somewhere, I assume to be in the computeHeatTransfer(). Working on making everything thread safe." />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/wstone/concurrent/Simulation.java</url>
+          <line>128</line>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
