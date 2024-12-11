@@ -3,6 +3,7 @@ package org.wstone.concurrent;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.concurrent.*;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -14,10 +15,10 @@ public class Simulation {
         private final int height;
         private final ExecutorService executorService;
         private final int iterations;
-        //private static final int NUM_THREADS = Runtime.getRuntime().availableProcessors();
-        private static final int NUM_THREADS = 4;
-        private final ReentrantLock csvWriteLock = new ReentrantLock();
+        private static final int NUM_THREADS = Runtime.getRuntime().availableProcessors();
+        //private static final int NUM_THREADS = 4;
         private final String filename;
+        ConcurrentHashMap<String, Double> tempMap = new ConcurrentHashMap<>();
 
         public Alloy(int height, int width, double s, double t, double c1, double c2, double c3, int iterations, String filename){
             this.width = width;
@@ -32,25 +33,9 @@ public class Simulation {
             }
             setUpNeighbors();
             this.executorService = Executors.newFixedThreadPool(NUM_THREADS);
-            //initializeCsv();
             initializeHeatSources(s, t);
         }
 
-        private void initializeCsv(){
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
-                // Write headers
-                writer.write("iteration");
-                for (int y = 0; y < height; y++) {
-                    for (int x = 0; x < width; x++) {
-                        writer.write(String.format(",temp_%d_%d", x, y));
-                    }
-                }
-                writer.newLine();
-            } catch (IOException e) {
-                System.err.println("Error initializing CSV file: " + e.getMessage());
-                e.printStackTrace();
-            }
-        }
 
         private void setUpNeighbors() {
             for (int y = 0; y < height; y++) {
@@ -97,11 +82,22 @@ public class Simulation {
                     Thread.currentThread().interrupt();
                     break;
                 }
-                if(iteration % 5 == 0)writeToCsv();
+                if(iteration % 5 == 0 && iteration != 0){
+                    writeToMap();
+                    System.out.println("(0,0) is ... - > " + tempMap.get(Arrays.toString(new int[]{0, 0})) + "\n"+ "bla,bla) is ... - > " + tempMap.get(Arrays.toString(new int[]{width - 1, height - 1})) + "\n\n\n");
+                }
             }
         }
-        // map the cartesian coordinates to the value.
-
+        // map the cartesian coordinates to the value. An alternative to this would be to modify the logic in the grid[][]
+        // and replace it with a concurrent hashmap, but this is due in two days, so...
+        private void writeToMap(){
+            for (int y = 0; y < height; y++) {
+                for (int x = 0; x < width; x++) {
+                    int[] p = {x, y};
+                    tempMap.put(Arrays.toString(p), grid[y][x].temperature);
+                }
+            }
+        }
 
         // handles writing the csv, might need to work on making sure there are no data races
         private void writeToCsv(){
@@ -208,7 +204,7 @@ public class Simulation {
     }
     public static void main(String[] args) {
         Simulation simulation = new Simulation();
-        Simulation.Alloy alloy = simulation.new Alloy(500, 100, 1000.0, 800.0, 0.75, 1.0, 1.25, 1, "test.csv");
+        Simulation.Alloy alloy = simulation.new Alloy(250, 50, 1000.0, 800.0, 0.75, 1.0, 1.25, 10, "test.csv");
 
         alloy.simulateHeatTransfer();
         alloy.printFinalTemperatureDistribution();
