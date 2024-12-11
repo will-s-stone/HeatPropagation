@@ -120,31 +120,20 @@ public class Simulation {
                     }
                     double totalChange = 0.0;
                     int neighborCount = 0;
-                    for (Region neighbor : curRegion.neighbors){
-                        // lock the regions
-                        curRegion.lock.lock();
-                        neighbor.lock.lock();
-                        try {
-                            double tempDifference = neighbor.temperature - curRegion.temperature;
-                            double heatTransfer = tempDifference * curRegion.thermalCoefficient;
 
-                            totalChange += heatTransfer;
-                            neighborCount++;
-                        } finally {
-                            neighbor.lock.unlock();
-                            curRegion.lock.unlock();
-                        }
+                    for (Region neighbor : curRegion.neighbors){
+                        // alternative: collect all changes without locking
+                        double tempDifference = neighbor.temperature - curRegion.temperature;
+                        double heatTransfer = tempDifference * curRegion.thermalCoefficient;
+                        totalChange += heatTransfer;
+                        totalChange += heatTransfer;
+                        neighborCount++;
+
                     }
                     if (neighborCount > 0){
-                        curRegion.lock.lock();
-                        try {
-                            // may have an issue here, non-atomic op on volatile
-                            double t = curRegion.temperature;
-                            curRegion.setTemperature(t+totalChange/neighborCount);
-                            //curRegion.temperature += totalChange/neighborCount;
-                        }finally {
-                            curRegion.lock.unlock();
-                        }
+                        double change = totalChange / neighborCount;
+                        double t = curRegion.temperature;
+                        curRegion.setTemperature(t+change);
                     }
                 }
 
@@ -206,7 +195,7 @@ public class Simulation {
     }
     public static void main(String[] args) {
         Simulation simulation = new Simulation();
-        Simulation.Alloy alloy = simulation.new Alloy(200, 1000, 1000.0, 800.0, 0.75, 1.0, 1.25, 6);
+        Simulation.Alloy alloy = simulation.new Alloy(200, 1000, 1000.0, 800.0, 0.75, 1.0, 1.25, 60);
         alloy.simulateHeatTransfer();
         JFrame frame = new JFrame("Simulation");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
