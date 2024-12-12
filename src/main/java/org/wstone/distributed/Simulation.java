@@ -1,14 +1,9 @@
-package org.wstone.concurrent;
+package org.wstone.distributed;
 
 import javax.swing.*;
-import java.awt.*;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.concurrent.*;
 import java.util.concurrent.locks.ReentrantLock;
-import com.google.common.util.concurrent.AtomicDouble;
 
 
 public class Simulation {
@@ -183,7 +178,7 @@ public class Simulation {
     }
     public static void main(String[] args) {
         Simulation simulation = new Simulation();
-        Simulation.Alloy alloy = simulation.new Alloy(100, 100, 1000.0, 800.0, 0.75, 1.0, 1.25, 60000000);
+        Alloy alloy = simulation.new Alloy(100, 100, 1000.0, 800.0, 0.75, 1.0, 1.25, 60000000);
 
         JFrame frame = new JFrame("Heat Transfer Simulation");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
