@@ -11,9 +11,8 @@ public class Visualization extends JPanel {
     // Define the grid dimensions
     private final int height;
     private final int width;
-    private final int cellSize = 1;
+    private final int cellSize = 20;
     private ConcurrentHashMap<String, Double> tempMap;
-    private final ReentrantLock lock = new ReentrantLock();
     private final double s, t;
 
     public Visualization(ConcurrentHashMap<String, Double> tempMap, int height, int width, double s, double t) {
@@ -33,7 +32,7 @@ public class Visualization extends JPanel {
                 Double color = tempMap.get(Arrays.toString(p));
                 if (color == null) g.setColor(new Color(0, 0, 255));
                 else{g.setColor(setColor(color));}
-                g.fillRect(x, y, cellSize, cellSize);
+                g.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
             }
         }
     }

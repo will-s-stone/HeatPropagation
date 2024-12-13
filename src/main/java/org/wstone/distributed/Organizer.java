@@ -32,7 +32,7 @@ public class Organizer {
                 grid[y][x] = new Region(c1, c2, c3);
             }
         }
-        vis = new Visualization(this.tempMap, height, width, s, t);
+        vis = new Visualization(this.tempMap, height*20, width*20, s, t);
 
         setUpNeighbors();
         this.executorService = Executors.newFixedThreadPool(NUM_SERVERS);
@@ -62,7 +62,7 @@ public class Organizer {
     }
 
     void simulateHeatTransfer(JFrame frame) throws IOException {
-        frame.setSize( (vis.getWidth())+3, (vis.getHeight()+30));
+        frame.setSize( (vis.getWidth()), (vis.getHeight()));
         frame.add(vis);
         frame.setVisible(true);
         /*
@@ -83,7 +83,9 @@ public class Organizer {
                     try{
                         Packet receivedPacket = sendAndWaitForPackets(p, "localhost", port);
                         updateGridFromPacket(receivedPacket, startRow, endRow);
-                    } finally { latch.countDown();}
+                    } finally {
+                        latch.countDown();
+                    }
                 });
             }try {
                 latch.await();
@@ -126,24 +128,14 @@ public class Organizer {
     }
     private void updateGridFromPacket(Packet receivedPacket, int startRow, int endRow) {
         // Copy received grid data to the corresponding section of the current grid
-        for (int row = startRow; row < endRow; row++) {
-            System.arraycopy(receivedPacket.getGrid()[row], 0, grid[row], 0, width);
-        }
-    }
-    private long measurePacketSize(Packet p) throws IOException {
-        Packet p2 = p;
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ObjectOutputStream oos = new ObjectOutputStream(baos);
-        oos.writeObject(p2);
-        oos.close();
-
-        byte[] serializedObject = baos.toByteArray();
-        return serializedObject.length;
-
+//        for (int row = startRow; row < endRow; row++) {
+//            System.arraycopy(receivedPacket.getGrid()[row], 0, grid[row], 0, width);
+//        }
+        this.grid = receivedPacket.getGrid();
     }
 
     public static void main(String[] args) throws IOException {
-        Organizer o = new Organizer(25, 25, 800, 1000, 1.25, 1.0, 1.75, 60000000);
+        Organizer o = new Organizer(25, 25, 800, 1000, 1.25, 1.0, 1.75, Integer.MAX_VALUE);
         JFrame frame = new JFrame("Heat Transfer Simulation");
         o.simulateHeatTransfer(frame);
     }

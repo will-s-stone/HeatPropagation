@@ -12,7 +12,7 @@ public class Server {
         generateServers();
     }
 
-    static void generateServers() {
+    static void generateServers() throws IOException {
         ExecutorService executorService = Executors.newFixedThreadPool(2);
 
         Server server1 = new Server(6001);
@@ -39,8 +39,9 @@ public class Server {
     int port;
     ServerSocket ss;
 
-    public Server(int port){
+    public Server(int port) throws IOException {
         this.port = port;
+        ss = new ServerSocket(port);
     }
 
 
@@ -54,7 +55,6 @@ public class Server {
      */
     void listen() throws IOException {
         try{
-            ss = new ServerSocket(port);
 
             ExecutorService executor = Executors.newSingleThreadExecutor();
 
