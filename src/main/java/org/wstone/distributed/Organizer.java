@@ -20,6 +20,7 @@ public class Organizer {
     private int height;
     private Region[][] grid;
     ConcurrentHashMap<String, Double> tempMap = new ConcurrentHashMap<>();
+    String host = "pi.cs.oswego.edu";
     int startPort = 6001;
 
     public Organizer(int height, int width, double s, double t, double c1, double c2, double c3, int iterations){
@@ -81,7 +82,7 @@ public class Organizer {
                 int port = startPort + threadIndex;
                 executorService.submit(() -> {
                     try{
-                        Packet receivedPacket = sendAndWaitForPackets(p, "localhost", port);
+                        Packet receivedPacket = sendAndWaitForPackets(p, host, port);
                         updateGridFromPacket(receivedPacket, startRow, endRow);
                     } finally {
                         latch.countDown();

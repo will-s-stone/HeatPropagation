@@ -44,7 +44,6 @@ public class Server {
         ss = new ServerSocket(port);
     }
 
-
     /*
      *
      * Listens for a packet to be sent, the packet contains all the info to do compute heat transfer,
@@ -81,6 +80,7 @@ public class Server {
             ObjectOutputStream outputStream = new ObjectOutputStream(cs.getOutputStream());
 
             Packet packet = (Packet) inputStream.readObject();
+            outputStream.flush();
 
             System.out.println("Received Packet from client:");
 

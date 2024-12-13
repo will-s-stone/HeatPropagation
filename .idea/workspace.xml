@@ -4,13 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cda818e4-dd8a-4a02-aa37-8d83667f7e17" name="Changes" comment="Working on scaling the visualization.">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/wstone/distributed/serverdistro/Server.java" afterDir="false" />
+    <list default="true" id="cda818e4-dd8a-4a02-aa37-8d83667f7e17" name="Changes" comment="Turns out it worked all along...">
+      <change afterPath="$PROJECT_DIR$/.idea/remote-targets.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/wstone/concurrent/Visualization.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/wstone/concurrent/Visualization.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/wstone/distributed/Organizer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/wstone/distributed/Organizer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/wstone/distributed/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/wstone/distributed/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/wstone/distributed/Visualization.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/wstone/distributed/Visualization.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +22,7 @@
       <list>
         <option value="package-info" />
         <option value="Class" />
+        <option value="Dockerfile" />
       </list>
     </option>
   </component>
@@ -44,54 +45,54 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Alloy.executor": "Debug",
-    "Application.Client.executor": "Run",
-    "Application.DistributedHeatSimulation (1).executor": "Run",
-    "Application.DistributedHeatSimulation.executor": "Run",
-    "Application.HeatTransferGPU.executor": "Run",
-    "Application.HeatTransferSIMD.executor": "Run",
-    "Application.HeatTransferSimulation.executor": "Run",
-    "Application.Organizer.executor": "Run",
-    "Application.Server.executor": "Run",
-    "Application.Simulation (1).executor": "Run",
-    "Application.Simulation (2).executor": "Run",
-    "Application.Simulation (3).executor": "Run",
-    "Application.Simulation (4).executor": "Run",
-    "Application.Simulation (5).executor": "Run",
-    "Application.Simulation.executor": "Run",
-    "Application.ThermalAlloySimulation (1).executor": "Run",
-    "Application.ThermalAlloySimulation (2).executor": "Run",
-    "Application.ThermalAlloySimulation (3).executor": "Debug",
-    "Application.ThermalAlloySimulation (4).executor": "Debug",
-    "Application.ThermalAlloySimulation (5).executor": "Run",
-    "Application.ThermalAlloySimulation.executor": "Run",
-    "Application.Visualization.executor": "Run",
-    "Application.org.wstone.distributed.Simulation (1).executor": "Debug",
-    "Application.org.wstone.distributed.Simulation (2).executor": "Run",
-    "Application.org.wstone.distributed.Simulation (3).executor": "Run",
-    "Application.org.wstone.distributed.Simulation.executor": "Run",
-    "Application.org.wstone.distributed.Visualization.executor": "Run",
-    "Application.org.wstone.distributed.serverdistro.Server.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
-    "jdk.selected.JAVA_MODULE": "17",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/williamstone/main_dir/school/oswego/fall_24/csc_375/projects/a-3/v1/HeatPropagation/src/main/java/org/wstone/distributed/serverdistro",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Alloy.executor&quot;: &quot;Debug&quot;,
+    &quot;Application.Client.executor&quot;: &quot;Run&quot;,
+    &quot;Application.DistributedHeatSimulation (1).executor&quot;: &quot;Run&quot;,
+    &quot;Application.DistributedHeatSimulation.executor&quot;: &quot;Run&quot;,
+    &quot;Application.HeatTransferGPU.executor&quot;: &quot;Run&quot;,
+    &quot;Application.HeatTransferSIMD.executor&quot;: &quot;Run&quot;,
+    &quot;Application.HeatTransferSimulation.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Organizer.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Server.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Simulation (1).executor&quot;: &quot;Run&quot;,
+    &quot;Application.Simulation (2).executor&quot;: &quot;Run&quot;,
+    &quot;Application.Simulation (3).executor&quot;: &quot;Run&quot;,
+    &quot;Application.Simulation (4).executor&quot;: &quot;Run&quot;,
+    &quot;Application.Simulation (5).executor&quot;: &quot;Run&quot;,
+    &quot;Application.Simulation.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ThermalAlloySimulation (1).executor&quot;: &quot;Run&quot;,
+    &quot;Application.ThermalAlloySimulation (2).executor&quot;: &quot;Run&quot;,
+    &quot;Application.ThermalAlloySimulation (3).executor&quot;: &quot;Debug&quot;,
+    &quot;Application.ThermalAlloySimulation (4).executor&quot;: &quot;Debug&quot;,
+    &quot;Application.ThermalAlloySimulation (5).executor&quot;: &quot;Run&quot;,
+    &quot;Application.ThermalAlloySimulation.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Visualization.executor&quot;: &quot;Run&quot;,
+    &quot;Application.org.wstone.distributed.Simulation (1).executor&quot;: &quot;Debug&quot;,
+    &quot;Application.org.wstone.distributed.Simulation (2).executor&quot;: &quot;Run&quot;,
+    &quot;Application.org.wstone.distributed.Simulation (3).executor&quot;: &quot;Run&quot;,
+    &quot;Application.org.wstone.distributed.Simulation.executor&quot;: &quot;Run&quot;,
+    &quot;Application.org.wstone.distributed.Visualization.executor&quot;: &quot;Run&quot;,
+    &quot;Application.org.wstone.distributed.serverdistro.Server.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;17&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/williamstone/main_dir/school/oswego/fall_24/csc_375/projects/a-3/v1/HeatPropagation/src/main/java/org/wstone/distributed/serverdistro&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.17663419&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/java/org/wstone/distributed/serverdistro" />
@@ -105,6 +106,8 @@
     <configuration name="Organizer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.wstone.distributed.Organizer" />
       <module name="HeatPropagation" />
+      <projectPathOnTarget name="projectPathOnTarget" value="/home/wstone/HeatPropagation" />
+      <target name="@@@LOCAL@@@" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="org.wstone.distributed.*" />
@@ -118,6 +121,7 @@
     <configuration name="Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.wstone.distributed.Server" />
       <module name="HeatPropagation" />
+      <target name="wstone@pi.cs.oswego.edu:222" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="org.wstone.distributed.*" />
@@ -128,7 +132,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Simulation" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="Simulation (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.wstone.concurrent.Simulation" />
       <module name="HeatPropagation" />
       <extension name="coverage">
@@ -193,13 +197,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.Simulation" />
+      <item itemvalue="Application.Simulation (1)" />
+      <item itemvalue="Application.org.wstone.distributed.serverdistro.Server" />
+      <item itemvalue="Application.org.wstone.distributed.Visualization" />
+      <item itemvalue="Application.Organizer" />
+      <item itemvalue="Application.Server" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Organizer" />
         <item itemvalue="Application.Server" />
+        <item itemvalue="Application.Simulation (1)" />
         <item itemvalue="Application.org.wstone.distributed.serverdistro.Server" />
         <item itemvalue="Application.org.wstone.distributed.Visualization" />
-        <item itemvalue="Application.Simulation" />
       </list>
     </recent_temporary>
   </component>
@@ -231,7 +243,8 @@
       <workItem from="1733941318724" duration="6551000" />
       <workItem from="1733947894468" duration="12887000" />
       <workItem from="1734007610077" duration="1914000" />
-      <workItem from="1734014388929" duration="29805000" />
+      <workItem from="1734014388929" duration="31677000" />
+      <workItem from="1734072829324" duration="2249000" />
     </task>
     <task id="LOCAL-00001" summary="Bare setup of alloy.">
       <option name="closed" value="true" />
@@ -369,7 +382,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734068065880</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Turns out it worked all along...">
+      <option name="closed" value="true" />
+      <created>1734071098863</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1734071098863</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -393,7 +414,8 @@
     <MESSAGE value="Changing the structure to a server and organizer pattern. Got ping pong" />
     <MESSAGE value="Overhaul time..." />
     <MESSAGE value="Working on scaling the visualization." />
-    <option name="LAST_COMMIT_MESSAGE" value="Working on scaling the visualization." />
+    <MESSAGE value="Turns out it worked all along..." />
+    <option name="LAST_COMMIT_MESSAGE" value="Turns out it worked all along..." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -405,7 +427,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/org/wstone/distributed/Organizer.java</url>
-          <line>96</line>
+          <line>97</line>
           <option name="timeStamp" value="19" />
         </line-breakpoint>
       </breakpoints>

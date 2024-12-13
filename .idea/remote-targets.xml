@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="RemoteTargetsManager">
+    <targets>
+      <target name="wstone@pi.cs.oswego.edu:22" type="ssh/sftp" uuid="371afc26-5966-431e-a9e1-d8beaa044041">
+        <config>
+          <option name="projectRootOnTarget" value="/home/wstone/HeatPropagation" />
+          <option name="serverName" value="wstone@cs.oswego.edu:22 password" />
+        </config>
+        <ContributedStateBase type="JavaLanguageRuntime">
+          <config>
+            <option name="javaVersionString" value="11.0.25" />
+          </config>
+        </ContributedStateBase>
+      </target>
+      <target name="wstone@pi.cs.oswego.edu:222" type="ssh/sftp" uuid="f3693d84-5010-4367-a601-78cb4e80d22e">
+        <config>
+          <option name="projectRootOnTarget" value="/home/wstone/HeatPropagation" />
+          <option name="serverName" value="wstone@pi.cs.oswego.edu:22 password" />
+        </config>
+        <ContributedStateBase type="JavaLanguageRuntime">
+          <config>
+            <option name="javaVersionString" value="17.0.13" />
+          </config>
+        </ContributedStateBase>
+      </target>
+      <target name="wstone@pi.cs.oswego.edu:223" type="ssh/sftp" uuid="5158bcb7-07b8-4356-8ec7-b1e6e6c4a5af">
+        <config>
+          <option name="projectRootOnTarget" value="/home/wstone/HeatPropagation" />
+          <option name="serverName" value="wstone@pi.cs.oswego.edu:22 password" />
+        </config>
+        <ContributedStateBase type="JavaLanguageRuntime">
+          <config>
+            <option name="javaVersionString" value="17.0.13" />
+          </config>
+        </ContributedStateBase>
+      </target>
+    </targets>
+  </component>
+</project>
