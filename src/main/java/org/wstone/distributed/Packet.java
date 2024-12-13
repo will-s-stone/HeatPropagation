@@ -1,7 +1,7 @@
 package org.wstone.distributed;
 
 import java.io.Serializable;
-import java.net.InetAddress;
+
 
 public class Packet implements Serializable {
     private int width;

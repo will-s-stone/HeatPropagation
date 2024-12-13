@@ -116,7 +116,6 @@ public class Organizer {
              ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
              ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
 
-            // Send the packet
             out.writeObject(p);
             out.flush();
 

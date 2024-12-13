@@ -3,7 +3,6 @@ package org.wstone.distributed;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Arrays;
 import java.util.concurrent.*;
 
 public class Server {
@@ -78,11 +77,13 @@ public class Server {
 //
 //            ObjectOutputStream outputStream = new ObjectOutputStream(cs.getOutputStream());
             ObjectOutputStream outputStream = new ObjectOutputStream(cs.getOutputStream());
+            outputStream.flush();
+
             ObjectInputStream inputStream = new ObjectInputStream(cs.getInputStream());
 
 
             System.out.println("Waiting for packet...");
-            System.out.println(inputStream.read());
+
             Packet packet = (Packet) inputStream.readObject();
 
             System.out.println("Received Packet from client:");
