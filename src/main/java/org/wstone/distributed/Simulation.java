@@ -127,7 +127,7 @@ public class Simulation {
                     final int endRow = (threadIndex == NUM_THREADS - 1) ? height : startRow + rowsPerThread;
                     executorService.submit(() -> {
                         try{
-                            computeHeatTransfer(startRow, endRow);
+                            //computeHeatTransfer(startRow, endRow);
                         } finally {
                             latch.countDown();
                         }
@@ -157,7 +157,12 @@ public class Simulation {
             }
         }
 
-        private void computeHeatTransfer(int startRow, int endRow){
+        /*
+         * have the server class sit idle and piece together grids as they are sent.
+         * everytime compute heat transfer is called, we request the
+         */
+        private void computeHeatTransfer(Region[][] grid, int startRow, int endRow){
+
             for (int y = startRow; y < endRow; y++) {
                 for (int x = 0; x < width; x++) {
                     Region curRegion = grid[y][x];
@@ -182,7 +187,6 @@ public class Simulation {
                         curRegion.setTemperature(t+change);
                     }
                 }
-
             }
         }
 

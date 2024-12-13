@@ -1,44 +1,97 @@
 package org.wstone.distributed;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Arrays;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.*;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Server {
-    String HOST = "localhost";
+    public static void main(String[] args) {
+        Server s = new Server();
+        s.listen();
+    }
     int PORT = 6966;
     ServerSocket ss;
 
-    void listen() throws IOException, InterruptedException {
-        /*
-         * the premise I am going for here is that I will loop and send
-         * the map each iteration
-         */
+
+    /*
+     * Listens for incoming connections and when something is first received from the organizer,
+     * it sets grid equal to that, and sends the updated map back to the organizer.
+     *
+     * The organizer then sets the shared map equal to the map it received, then sends it back
+     */
+    void listen(){
         try{
             ss = new ServerSocket(PORT);
-            Socket socket = ss.accept(); // blocking
-            System.out.println("Connection from " + socket);
 
-            InputStream is = socket.getInputStream();
-            ObjectInputStream ois = new ObjectInputStream(is);
+            ExecutorService executor = Executors.newSingleThreadExecutor();
 
-            ConcurrentHashMap<String, Double> map = (ConcurrentHashMap<String, Double>) ois.readObject();
-            System.out.println("Map -->" + map.get(Arrays.toString(new int[]{0, 0})));
+            System.out.println("Server is listening on port " + PORT);
 
-        } catch (IOException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } finally {
-            Thread.sleep(100);
-            ss.close();
+            while(true){
+                Socket cs = ss.accept();
+                System.out.println("Client connected: " + cs.getInetAddress());
+                executor.submit(() -> processClientConnection(cs));
+            }
+        } catch (IOException e) {
+            System.err.println("Server error: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
-    public static void main(String[] args) throws IOException, InterruptedException {
-        Server c = new Server();
-        c.listen();
+    private static void processClientConnection(Socket cs){
+        try{
+            ObjectInputStream inputStream = new ObjectInputStream(cs.getInputStream());
+
+            ObjectOutputStream outputStream = new ObjectOutputStream(cs.getOutputStream());
+
+            Region[][] receivedRegions = (Region[][]) inputStream.readObject();
+
+            System.out.println("Received Region[][] from client:");
+
+            // send the same Region[][] back to the client
+            outputStream.writeObject(receivedRegions);
+            outputStream.flush();
+
+            outputStream.close();
+            inputStream.close();
+            cs.close();
+
+        } catch (IOException | ClassNotFoundException e) {
+            System.err.println("Client connection error: " + e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    class Region implements Serializable {
+        CopyOnWriteArrayList<Simulation.Alloy.Region> neighbors;
+        double thermalCoefficient;
+        private volatile double temperature;
+        ReentrantLock lock;
+
+        // we assume any region is made of 3 alloys with 3 different thermal coefficients with a 20% variance in the amount each alloy.
+        // in this context we can interpret that the variance scales linearly to the thermal coefficient
+        public Region(double c1, double c2, double c3){
+            neighbors = new CopyOnWriteArrayList<>();
+            lock = new ReentrantLock();
+            // 20% variation
+            thermalCoefficient = (c1*generateUniformRandom(0.8, 1.2) + c2*generateUniformRandom(0.8, 1.2) + (c3*generateUniformRandom(0.8, 1.2))) / 3;
+        }
+
+        static double generateUniformRandom(double min, double max) {
+            return min + (max - min) * ThreadLocalRandom.current().nextDouble();
+        }
+
+        void setTemperature(double temperature) {
+            lock.lock();
+            try {
+                this.temperature = temperature;
+            }finally {
+                lock.unlock();
+            }
+        }
     }
 }
