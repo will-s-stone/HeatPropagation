@@ -8,7 +8,7 @@ import java.util.concurrent.*;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Server {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Server s = new Server();
         s.listen();
     }
@@ -22,7 +22,7 @@ public class Server {
      *
      * The organizer then sets the shared map equal to the map it received, then sends it back
      */
-    void listen(){
+    void listen() throws IOException {
         try{
             ss = new ServerSocket(PORT);
 
@@ -33,15 +33,18 @@ public class Server {
             while(true){
                 Socket cs = ss.accept();
                 System.out.println("Client connected: " + cs.getInetAddress());
-                executor.submit(() -> processClientConnection(cs));
+                executor.submit(() -> processOrganizerConnection(cs));
             }
         } catch (IOException e) {
             System.err.println("Server error: " + e.getMessage());
             e.printStackTrace();
         }
+        finally {
+            ss.close();
+        }
     }
 
-    private static void processClientConnection(Socket cs){
+    private static void processOrganizerConnection(Socket cs){
         try{
             ObjectInputStream inputStream = new ObjectInputStream(cs.getInputStream());
 

@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cda818e4-dd8a-4a02-aa37-8d83667f7e17" name="Changes" comment="Working...">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/wstone/distributed/DistributedHeatSimulation.java" afterDir="false" />
+    <list default="true" id="cda818e4-dd8a-4a02-aa37-8d83667f7e17" name="Changes" comment="Changing the structure to a server and organizer pattern.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/wstone/distributed/Organizer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/wstone/distributed/Organizer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/wstone/distributed/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/wstone/distributed/Server.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,9 +45,12 @@
   "keyToString": {
     "Application.Alloy.executor": "Debug",
     "Application.Client.executor": "Run",
+    "Application.DistributedHeatSimulation (1).executor": "Run",
     "Application.DistributedHeatSimulation.executor": "Run",
     "Application.HeatTransferGPU.executor": "Run",
     "Application.HeatTransferSimulation.executor": "Run",
+    "Application.Organizer.executor": "Run",
+    "Application.Server.executor": "Run",
     "Application.Simulation (1).executor": "Run",
     "Application.Simulation (2).executor": "Run",
     "Application.Simulation (3).executor": "Run",
@@ -89,26 +94,13 @@
       <recent name="org.wstone.concurrent.temp" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.DistributedHeatSimulation (1)">
-    <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.wstone.distributed.Client" />
-      <module name="HeatPropagation" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.wstone.distributed.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="DistributedHeatSimulation (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Application.Organizer">
+    <configuration name="DistributedHeatSimulation" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.wstone.distributed.DistributedHeatSimulation" />
       <module name="HeatPropagation" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.wstone.distributed.*" />
+          <option name="PATTERN" value="org.wstone.distributed.Server" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -121,6 +113,19 @@
       <module name="HeatPropagation" />
       <extension name="coverage">
         <pattern>
+          <option name="PATTERN" value="org.wstone.distributed.Server" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Organizer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.wstone.distributed.Organizer" />
+      <module name="HeatPropagation" />
+      <extension name="coverage">
+        <pattern>
           <option name="PATTERN" value="org.wstone.distributed.*" />
           <option name="ENABLED" value="true" />
         </pattern>
@@ -129,8 +134,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Simulation (2)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.wstone.distributed.Simulation" />
+    <configuration name="Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.wstone.distributed.Server" />
       <module name="HeatPropagation" />
       <extension name="coverage">
         <pattern>
@@ -147,7 +152,7 @@
       <module name="HeatPropagation" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.wstone.distributed.*" />
+          <option name="PATTERN" value="org.wstone.distributed.Server" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -183,11 +188,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Organizer" />
+        <item itemvalue="Application.Server" />
         <item itemvalue="Application.DistributedHeatSimulation (1)" />
         <item itemvalue="Application.DistributedHeatSimulation" />
         <item itemvalue="Application.Simulation" />
-        <item itemvalue="Application.Client" />
-        <item itemvalue="Application.Simulation (2)" />
       </list>
     </recent_temporary>
   </component>
@@ -219,7 +224,7 @@
       <workItem from="1733941318724" duration="6551000" />
       <workItem from="1733947894468" duration="12887000" />
       <workItem from="1734007610077" duration="1914000" />
-      <workItem from="1734014388929" duration="14280000" />
+      <workItem from="1734014388929" duration="17171000" />
     </task>
     <task id="LOCAL-00001" summary="Bare setup of alloy.">
       <option name="closed" value="true" />
@@ -325,7 +330,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734054400613</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Changing the structure to a server and organizer pattern.">
+      <option name="closed" value="true" />
+      <created>1734057610006</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1734057610006</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -345,6 +358,7 @@
     <MESSAGE value="Distribute time.." />
     <MESSAGE value="Distribute time p2.." />
     <MESSAGE value="Working..." />
-    <option name="LAST_COMMIT_MESSAGE" value="Working..." />
+    <MESSAGE value="Changing the structure to a server and organizer pattern." />
+    <option name="LAST_COMMIT_MESSAGE" value="Changing the structure to a server and organizer pattern." />
   </component>
 </project>
