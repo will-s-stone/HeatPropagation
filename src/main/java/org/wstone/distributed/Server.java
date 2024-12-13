@@ -9,11 +9,39 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class Server {
     public static void main(String[] args) throws IOException {
-        Server s = new Server();
-        s.listen();
+        generateServers();
     }
-    int PORT = 6966;
+
+    static void generateServers() {
+        ExecutorService executorService = Executors.newFixedThreadPool(2);
+
+        Server server1 = new Server(6001);
+        Server server2 = new Server(6002);
+
+        executorService.submit(() -> {
+            try {
+                server1.listen();
+            } catch (IOException e) {
+                System.err.println("Error running server1: " + e.getMessage());
+            }
+        });
+
+        executorService.submit(() -> {
+            try {
+                server2.listen();
+            } catch (IOException e) {
+                System.err.println("Error running server2: " + e.getMessage());
+            }
+        });
+    }
+
+
+    int port;
     ServerSocket ss;
+
+    public Server(int port){
+        this.port = port;
+    }
 
 
     /*
@@ -26,11 +54,11 @@ public class Server {
      */
     void listen() throws IOException {
         try{
-            ss = new ServerSocket(PORT);
+            ss = new ServerSocket(port);
 
             ExecutorService executor = Executors.newSingleThreadExecutor();
 
-            System.out.println("Server is listening on port " + PORT);
+            System.out.println("Server is listening on port " + port);
 
             while(true){
                 Socket cs = ss.accept();

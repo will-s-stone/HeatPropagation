@@ -19,9 +19,10 @@ public class Simulation {
         private final int height;
         private final ExecutorService executorService;
         private final int iterations;
-        private static final int NUM_THREADS = Runtime.getRuntime().availableProcessors();
         ConcurrentHashMap<String, Double> tempMap = new ConcurrentHashMap<>();
         Visualization vis;
+        private static final int NUM_THREADS = Runtime.getRuntime().availableProcessors();
+
 
 
         public Alloy(int height, int width, double s, double t, double c1, double c2, double c3, int iterations){
@@ -93,6 +94,9 @@ public class Simulation {
                 if(iteration % 5 == 0 && iteration != 0){
                     writeToMap();
                     SwingUtilities.invokeLater(vis::repaint);
+                    if(iteration % 1000 == 0) {
+                        System.out.println("iteration " + iteration);
+                    }
                 }
             }
         }
@@ -183,7 +187,8 @@ public class Simulation {
     }
     public static void main(String[] args) {
         Simulation simulation = new Simulation();
-        Simulation.Alloy alloy = simulation.new Alloy(100, 100, 1000.0, 800.0, 0.75, 1.0, 1.25, 60000000);
+        Simulation.Alloy alloy = simulation.new Alloy(200, 100, 1000.0, 800.0, 1.25, 1.0, 1.75, 60000000);
+        //Simulation.Alloy alloy = simulation.new Alloy(200, 1000, 1000.0, 800.0, 1.25, 2.5, 2.25, 60000000); // cool stuff happens when you uncomment this
 
         JFrame frame = new JFrame("Heat Transfer Simulation");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

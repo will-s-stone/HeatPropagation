@@ -2,7 +2,10 @@ package org.wstone.distributed;
 
 import javax.swing.*;
 import java.io.*;
+import java.net.InetAddress;
 import java.net.Socket;
+import java.net.UnknownHostException;
+import java.util.Arrays;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
@@ -10,7 +13,6 @@ import java.util.concurrent.Executors;
 
 public class Organizer {
     private final int iterations;
-    private Packet curPacket = null;
     Visualization vis;
     private static final int NUM_SERVERS =2;
     private final ExecutorService executorService;
@@ -18,6 +20,7 @@ public class Organizer {
     private int height;
     private Region[][] grid;
     ConcurrentHashMap<String, Double> tempMap = new ConcurrentHashMap<>();
+    int startPort = 6001;
 
     public Organizer(int height, int width, double s, double t, double c1, double c2, double c3, int iterations){
         this.width = width;
@@ -32,36 +35,38 @@ public class Organizer {
         vis = new Visualization(this.tempMap, height, width, s, t);
 
         setUpNeighbors();
-        this.executorService = Executors.newFixedThreadPool(NUM_THREADS);
+        this.executorService = Executors.newFixedThreadPool(NUM_SERVERS);
         initializeHeatSources(s, t);
     }
+    void initializeHeatSources(double s, double t){
+        grid[0][0].setTemperature(s);
+        grid[height - 1][width -1].setTemperature(t);
+    }
 
-    private Packet sendAndReceive(String serverAddress, int serverPort, Packet packet) throws IOException {
-        try (Socket socket = new Socket(serverAddress, serverPort);
-             ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
-             ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream())) {
+    private void setUpNeighbors() {
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                Region curRegion = grid[y][x];
 
-            // Send the packet to the server
-            outputStream.writeObject(packet);
-            outputStream.flush();
+                int[][] surroundings = {{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}};
 
-            // Wait for and read the processed packet back
-            try {
-                Packet processedPacket = (Packet) inputStream.readObject();
-                return processedPacket;
-            } catch (ClassNotFoundException e) {
-                // Convert to IOException to maintain method signature
-                throw new IOException("Error deserializing packet", e);
+                for (int[] s : surroundings) {
+                    int nX = x + s[1];
+                    int nY = y + s[0];
+                    if(nX >= 0 && nX < width && nY >=0 && nY < height){
+                        curRegion.neighbors.add(grid[nY][nX]);
+                    }
+                }
             }
         }
     }
 
     void simulateHeatTransfer(JFrame frame) throws IOException {
-        frame.setSize((int) (vis.getWidth())+3, (int) (vis.getHeight()+30));
+        frame.setSize( (vis.getWidth())+3, (vis.getHeight()+30));
         frame.add(vis);
         frame.setVisible(true);
         /*
-         * each iteration computes the heat transfer fo
+         * each iteration computes the heat transfer
          */
         for (int iteration = 0; iteration < iterations; iteration++) {
             CountDownLatch latch = new CountDownLatch(NUM_SERVERS);
@@ -69,25 +74,77 @@ public class Organizer {
             for (int threadIndex = 0; threadIndex < NUM_SERVERS; threadIndex++) {
                 final int startRow = threadIndex * rowsPerThread;
                 final int endRow = (threadIndex == NUM_SERVERS - 1) ? height : startRow + rowsPerThread;
+                // create a new packet and send it to a client.
+                // after we send it to the client we want to wait and field the incoming Packets.
+                Packet p = new Packet(width, height, grid, startRow, endRow);
+                //System.out.println("The size of packet # " + iteration + " is " + measurePacketSize(p));
+                int port = startPort + threadIndex;
                 executorService.submit(() -> {
                     try{
-                        //computeHeatTransfer(startRow, endRow);
-                    } finally {
-                        latch.countDown();
-                    }
+                        Packet receivedPacket = sendAndWaitForPackets(p, "localhost", port);
+                        updateGridFromPacket(receivedPacket, startRow, endRow);
+                    } finally { latch.countDown();}
                 });
-            }
-            try {
+            }try {
                 latch.await();
             }catch (InterruptedException e){
                 Thread.currentThread().interrupt();
                 break;
             }
             if(iteration % 5 == 0 && iteration != 0){
-                //writeToMap();
-                //send();
+                writeToMap();
                 SwingUtilities.invokeLater(vis::repaint);
+                System.out.println(iteration + " # --->");
             }
         }
+    }
+    private void writeToMap(){
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                int[] p = {x, y};
+                tempMap.put(Arrays.toString(p), grid[y][x].temperature);
+            }
+        }
+    }
+
+    private Packet sendAndWaitForPackets(Packet p, String host, int port) {
+        try (Socket socket = new Socket(host, port);
+             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+             ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
+
+            // Send the packet
+            out.writeObject(p);
+            out.flush();
+
+            // Wait and receive the response packet
+            return (Packet) in.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            // Return original packet or handle error
+            return p;
+        }
+    }
+    private void updateGridFromPacket(Packet receivedPacket, int startRow, int endRow) {
+        // Copy received grid data to the corresponding section of the current grid
+        for (int row = startRow; row < endRow; row++) {
+            System.arraycopy(receivedPacket.getGrid()[row], 0, grid[row], 0, width);
+        }
+    }
+    private long measurePacketSize(Packet p) throws IOException {
+        Packet p2 = p;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(baos);
+        oos.writeObject(p2);
+        oos.close();
+
+        byte[] serializedObject = baos.toByteArray();
+        return serializedObject.length;
+
+    }
+
+    public static void main(String[] args) throws IOException {
+        Organizer o = new Organizer(25, 25, 800, 1000, 1.25, 1.0, 1.75, 60000000);
+        JFrame frame = new JFrame("Heat Transfer Simulation");
+        o.simulateHeatTransfer(frame);
     }
 }

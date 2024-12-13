@@ -1,6 +1,7 @@
 package org.wstone.distributed;
 
 import java.io.Serializable;
+import java.net.InetAddress;
 
 public class Packet implements Serializable {
     private int width;
@@ -16,6 +17,9 @@ public class Packet implements Serializable {
         this.startRow = startRow;
         this.endRow = endRow;
     }
+    protected Region[][] getGrid(){
+        return grid;
+    }
 
     protected Region[][] computeHeatTransfer(){
         for (int y = startRow; y < endRow; y++) {
@@ -27,14 +31,11 @@ public class Packet implements Serializable {
                 double totalChange = 0.0;
                 int neighborCount = 0;
 
-                for (Simulation.Alloy.Region neighbor : curRegion.neighbors){
-                    // alternative: collect all changes without locking
+                for (Region neighbor : curRegion.neighbors){
                     double tempDifference = neighbor.temperature - curRegion.temperature;
                     double heatTransfer = tempDifference * curRegion.thermalCoefficient;
-                    //totalChange += heatTransfer;
                     totalChange += heatTransfer;
                     neighborCount++;
-
                 }
                 if (neighborCount > 0){
                     double change = totalChange / neighborCount;

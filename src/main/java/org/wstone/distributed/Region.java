@@ -6,7 +6,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Region implements Serializable{
-        CopyOnWriteArrayList<Simulation.Alloy.Region> neighbors;
+        CopyOnWriteArrayList<Region> neighbors;
         double thermalCoefficient;
         protected volatile double temperature;
         ReentrantLock lock;
