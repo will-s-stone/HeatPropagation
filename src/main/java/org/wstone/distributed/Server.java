@@ -5,7 +5,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Arrays;
 import java.util.concurrent.*;
-import java.util.concurrent.locks.ReentrantLock;
 
 public class Server {
     public static void main(String[] args) throws IOException {
@@ -75,12 +74,16 @@ public class Server {
 
     private static void processOrganizerConnection(Socket cs){
         try{
+//            ObjectInputStream inputStream = new ObjectInputStream(cs.getInputStream());
+//
+//            ObjectOutputStream outputStream = new ObjectOutputStream(cs.getOutputStream());
+            ObjectOutputStream outputStream = new ObjectOutputStream(cs.getOutputStream());
             ObjectInputStream inputStream = new ObjectInputStream(cs.getInputStream());
 
-            ObjectOutputStream outputStream = new ObjectOutputStream(cs.getOutputStream());
 
+            System.out.println("Waiting for packet...");
+            System.out.println(inputStream.read());
             Packet packet = (Packet) inputStream.readObject();
-            outputStream.flush();
 
             System.out.println("Received Packet from client:");
 

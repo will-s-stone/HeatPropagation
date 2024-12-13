@@ -23,6 +23,7 @@ public class Organizer {
     String host = "pi.cs.oswego.edu";
     int startPort = 6001;
 
+
     public Organizer(int height, int width, double s, double t, double c1, double c2, double c3, int iterations){
         this.width = width;
         this.height = height;
@@ -128,7 +129,7 @@ public class Organizer {
         }
     }
     private void updateGridFromPacket(Packet receivedPacket, int startRow, int endRow) {
-        // Copy received grid data to the corresponding section of the current grid
+        // copy received grid data to the corresponding section of the current grid, decommissioned for testing
 //        for (int row = startRow; row < endRow; row++) {
 //            System.arraycopy(receivedPacket.getGrid()[row], 0, grid[row], 0, width);
 //        }
