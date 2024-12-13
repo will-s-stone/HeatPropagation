@@ -17,10 +17,12 @@ public class Server {
 
 
     /*
-     * Listens for incoming connections and when something is first received from the organizer,
-     * it sets grid equal to that, and sends the updated map back to the organizer.
      *
-     * The organizer then sets the shared map equal to the map it received, then sends it back
+     * Listens for a packet to be sent, the packet contains all the info to do compute heat transfer,
+     * which it will do then send back the grid.
+     *
+     * then the grid will be sent back to the organizer
+     *
      */
     void listen() throws IOException {
         try{
@@ -50,12 +52,15 @@ public class Server {
 
             ObjectOutputStream outputStream = new ObjectOutputStream(cs.getOutputStream());
 
-            Region[][] receivedRegions = (Region[][]) inputStream.readObject();
+            Packet packet = (Packet) inputStream.readObject();
 
-            System.out.println("Received Region[][] from client:");
+            System.out.println("Received Packet from client:");
 
-            // send the same Region[][] back to the client
-            outputStream.writeObject(receivedRegions);
+            packet.computeHeatTransfer();
+
+            // send the same packet back to the organizer.
+            // the organizer will then take that packet, then send the updated packet containing the grid, which we will be waiting to receive
+            outputStream.writeObject(packet);
             outputStream.flush();
 
             outputStream.close();
@@ -65,36 +70,6 @@ public class Server {
         } catch (IOException | ClassNotFoundException e) {
             System.err.println("Client connection error: " + e.getMessage());
             throw new RuntimeException(e);
-        }
-    }
-
-
-    class Region implements Serializable {
-        CopyOnWriteArrayList<Simulation.Alloy.Region> neighbors;
-        double thermalCoefficient;
-        private volatile double temperature;
-        ReentrantLock lock;
-
-        // we assume any region is made of 3 alloys with 3 different thermal coefficients with a 20% variance in the amount each alloy.
-        // in this context we can interpret that the variance scales linearly to the thermal coefficient
-        public Region(double c1, double c2, double c3){
-            neighbors = new CopyOnWriteArrayList<>();
-            lock = new ReentrantLock();
-            // 20% variation
-            thermalCoefficient = (c1*generateUniformRandom(0.8, 1.2) + c2*generateUniformRandom(0.8, 1.2) + (c3*generateUniformRandom(0.8, 1.2))) / 3;
-        }
-
-        static double generateUniformRandom(double min, double max) {
-            return min + (max - min) * ThreadLocalRandom.current().nextDouble();
-        }
-
-        void setTemperature(double temperature) {
-            lock.lock();
-            try {
-                this.temperature = temperature;
-            }finally {
-                lock.unlock();
-            }
         }
     }
 }

@@ -162,7 +162,6 @@ public class Simulation {
          * everytime compute heat transfer is called, we request the
          */
         private void computeHeatTransfer(Region[][] grid, int startRow, int endRow){
-
             for (int y = startRow; y < endRow; y++) {
                 for (int x = 0; x < width; x++) {
                     Region curRegion = grid[y][x];
@@ -194,7 +193,7 @@ public class Simulation {
         class Region{
             CopyOnWriteArrayList<Region> neighbors;
             double thermalCoefficient;
-            private volatile double temperature;
+            volatile double temperature;
             ReentrantLock lock;
 
             // we assume any region is made of 3 alloys with 3 different thermal coefficients with a 20% variance in the amount each alloy.
