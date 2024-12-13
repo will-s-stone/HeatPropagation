@@ -1,6 +1,10 @@
 package org.wstone.distributed;
 
 import javax.swing.*;
+import java.io.*;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.concurrent.*;
 import java.util.concurrent.locks.ReentrantLock;
@@ -8,15 +12,63 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class Simulation {
 
+
+
+
     class Alloy{
         Region[][] grid;
         private final int width;
         private final int height;
         private final ExecutorService executorService;
         private final int iterations;
-        private static final int NUM_THREADS = Runtime.getRuntime().availableProcessors();
+        //private static final int NUM_THREADS = Runtime.getRuntime().availableProcessors();
+        private static final int NUM_THREADS =2;
+        //private static final int NUM_SERVERS = 2;
         ConcurrentHashMap<String, Double> tempMap = new ConcurrentHashMap<>();
         Visualization vis;
+        String HOST = "localhost";
+        int PORT = 6966;
+        ServerSocket ss;
+
+        void listen() throws IOException, InterruptedException {
+            /*
+             * the premise I am going for here is that I will loop and send
+             * the map each iteration
+             */
+            try{
+                ss = new ServerSocket(PORT);
+                Socket socket = ss.accept(); // blocking
+                System.out.println("Connection from " + socket);
+
+                InputStream is = socket.getInputStream();
+                ObjectInputStream ois = new ObjectInputStream(is);
+
+                ConcurrentHashMap<String, Double> map = (ConcurrentHashMap<String, Double>) ois.readObject();
+                System.out.println("Map -->" + map.get(Arrays.toString(new int[]{1, 1})));
+
+            } catch (IOException | ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            } finally {
+                Thread.sleep(100);
+                ss.close();
+            }
+        }
+
+        void send() throws IOException {
+            Socket socket = null;
+            try {
+                socket = new Socket(HOST, PORT);
+                while (true) {
+                    OutputStream os = socket.getOutputStream();
+                    ObjectOutputStream oos = new ObjectOutputStream(os);
+                    oos.writeObject(tempMap);
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } finally {
+                socket.close();
+            }
+        }
 
 
         public Alloy(int height, int width, double s, double t, double c1, double c2, double c3, int iterations){
@@ -60,11 +112,13 @@ public class Simulation {
         }
 
 
-        void simulateHeatTransfer(JFrame frame){
+        void simulateHeatTransfer(JFrame frame) throws IOException {
             frame.setSize((int) (vis.getWidth())+3, (int) (vis.getHeight()+30));
             frame.add(vis);
             frame.setVisible(true);
-
+            /*
+             * each iteration computes the heat transfer fo
+             */
             for (int iteration = 0; iteration < iterations; iteration++) {
                 CountDownLatch latch = new CountDownLatch(NUM_THREADS);
                 int rowsPerThread = height/NUM_THREADS;
@@ -87,6 +141,7 @@ public class Simulation {
                 }
                 if(iteration % 5 == 0 && iteration != 0){
                     writeToMap();
+                    send();
                     SwingUtilities.invokeLater(vis::repaint);
                 }
             }
@@ -131,21 +186,6 @@ public class Simulation {
             }
         }
 
-        public void shutdown() {
-            executorService.shutdown();
-            try {
-                if (!executorService.awaitTermination(5, TimeUnit.SECONDS)) {
-                    executorService.shutdownNow();
-                    //wait again to ensure shutdown
-                    if (!executorService.awaitTermination(2, TimeUnit.SECONDS)) {
-                        System.err.println("ExecutorService did not terminate");
-                    }
-                }
-            } catch (InterruptedException e) {
-                executorService.shutdownNow();
-                Thread.currentThread().interrupt();
-            }
-        }
 
         class Region{
             CopyOnWriteArrayList<Region> neighbors;
@@ -176,7 +216,7 @@ public class Simulation {
             }
         }
     }
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Simulation simulation = new Simulation();
         Alloy alloy = simulation.new Alloy(100, 100, 1000.0, 800.0, 0.75, 1.0, 1.25, 60000000);
 
